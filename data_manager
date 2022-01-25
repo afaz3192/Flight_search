@@ -1,0 +1,41 @@
+
+from pprint import pprint
+import requests
+
+SHEETY_GET_ENDPOINT = "https://api.sheety.co/c2f83b9642d592497ad42fdd74a25258/copyOfFlightDeals/prices"
+class DataManager:
+
+
+
+    def flight_information_sheety(self):
+        response_from_sheety = requests.get(
+            url=SHEETY_GET_ENDPOINT
+        )
+        response_from_sheety.raise_for_status()
+        self.data = response_from_sheety.json()["prices"]
+        return self.data
+
+    def put_information_sheety(self):
+        for city in self.data:
+            information_to_sheety = {
+                "price":{
+                    "iataCode":city["iataCode"]
+
+                }
+
+
+            }
+
+            response = requests.put(
+                url = f"{SHEETY_GET_ENDPOINT}/{city['id']}", json=information_to_sheety
+            )
+
+
+
+
+
+
+
+
+
+
