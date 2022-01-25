@@ -1,0 +1,15 @@
+from twilio.rest import Client
+
+account_sid = "*******************************"
+auth_token = "********************************"
+class NotificationManager:
+    def send_sms(self, price, iataCode_origin, destination_city, tomorrow_date, six_months_date):
+
+        client = Client(account_sid, auth_token)
+        message = client.messages \
+            .create(
+            body=f"Low price alert! Only £{price} to fly from {iataCode_origin}, to {destination_city}, from {tomorrow_date} to {six_months_date}",
+            from_='(256) 414-0518',
+            to='(438)9310083'
+        )
+        print(message.status)
